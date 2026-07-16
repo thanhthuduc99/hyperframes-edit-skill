@@ -1,0 +1,26 @@
+# Media & render output — never commit
+*.mp4
+*.m4a
+*.mp3
+*.wav
+*.mov
+renders/
+**/renders/
+
+# Secrets & local env
+.env
+.env.*
+*.key
+
+# Node / tooling
+node_modules/
+npm-debug.log*
+
+# Local Claude Code machine config (paths, permissions)
+.claude/settings.json
+.claude/settings.local.json
+.claude/launch.json
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,23 @@
+Third-party components
+======================
+
+The following skills bundled under `.claude/skills/` are redistributions of the
+open-source HyperFrames project by HeyGen:
+
+  - hyperframes
+  - hyperframes-cli
+  - hyperframes-registry
+  - gsap
+  - website-to-hyperframes
+
+Source: https://github.com/heygen-com/hyperframes
+Provenance is recorded in `skills-lock.json` (content hashes).
+
+These are included for convenience so the edit pipeline works out of the box.
+They remain the property of their original authors and are governed by the
+license of the upstream HeyGen HyperFrames repository. Please refer to that
+repository for the authoritative license terms before redistributing.
+
+The MIT license in this repository (LICENSE) applies ONLY to the original work
+authored here: the `edit-pro` skill, `MOTION_PHILOSOPHY.md`, `WORKFLOW.md`,
+the `scripts/` utilities, and the `examples/` project scaffold.

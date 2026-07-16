@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @font-face {
+      font-family: 'Be Vietnam Pro';
+      font-weight: 700;
+      src: url('assets/fonts/BeVietnamPro-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Be Vietnam Pro';
+      font-weight: 600;
+      src: url('assets/fonts/BeVietnamPro-SemiBold.ttf') format('truetype');
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #000; }
+
+    /* ── FACE DOCK RIGHT — vertical source cropped into dock ── */
+    #face-wrapper {
+      position: absolute;
+      top: 60px; left: 1180px;
+      width: 680px; height: 960px;
+      border: 4px solid rgba(255,255,255,0.85);
+      border-radius: 32px;
+      overflow: hidden;
+      z-index: 5;
+      box-shadow:
+        0 0 40px rgba(255,255,255,0.07),
+        0 0 80px rgba(225,14,31,0.08);
+    }
+    #face-video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+    }
+
+    /* ── SCENE CONTAINER ── */
+    .scene {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1160px; height: 1080px;
+      padding: 72px 80px 72px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ── LABEL PILL ── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 100px;
+      padding: 9px 22px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+    .pill-red {
+      background: rgba(225,14,31,0.15);
+      border: 1px solid rgba(225,14,31,0.45);
+      color: #E10E1F;
+    }
+    .pill-green {
+      background: rgba(0,180,80,0.12);
+      border: 1px solid rgba(0,200,100,0.4);
+      color: #00C864;
+    }
+    .pill-gold {
+      background: rgba(240,165,0,0.12);
+      border: 1px solid rgba(240,165,0,0.45);
+      color: #F0A500;
+    }
+
+    /* ── TYPOGRAPHY — spacing fixed ── */
+    .eyebrow {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(250,247,245,0.5);
+      letter-spacing: 0.03em;
+      margin-bottom: 16px;
+    }
+    .h1 {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 100px;
+      font-weight: 700;
+      color: #FAF7F5;
+      line-height: 1.18;        /* ← tăng từ 1.0 */
+      letter-spacing: -0.01em;  /* ← bớt tight từ -0.02 */
+      margin-bottom: 20px;
+    }
+    .h1 .gold { color: #F0A500; }
+    .h1 .red  { color: #E10E1F; }
+    .h2 {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: #FAF7F5;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .h2 .gold { color: #F0A500; }
+    .sub {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: rgba(250,247,245,0.5);
+      line-height: 1.5;
+      margin-bottom: 32px;      /* ← tăng khoảng cách xuống card */
+    }
+
+    /* ── CARDS ── */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;                /* ← tăng từ 16px */
+    }
+    .card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px 26px;       /* ← tăng padding */
+      border-radius: 16px;
+    }
+    .card-dark {
+      background: rgba(250,247,245,0.05);
+      border: 1px solid rgba(250,247,245,0.12);
+    }
+    .card-green {
+      background: rgba(0,60,20,0.3);
+      border: 1px solid rgba(0,200,100,0.3);
+      box-shadow: 0 0 18px rgba(0,180,80,0.07);
+    }
+    .card-icon {
+      font-size: 28px;
+      line-height: 1;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+    .card-title {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: #FAF7F5;
+      line-height: 1.4;         /* ← line-height cho card title */
+      margin-bottom: 5px;
+    }
+    .card-sub {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(250,247,245,0.45);
+      line-height: 1.5;
+    }
+
+    /* ── CTA CARD ── */
+    .cta-box {
+      margin-top: 36px;
+      background: rgba(240,165,0,0.1);
+      border: 2px solid rgba(240,165,0,0.45);
+      border-radius: 24px;
+      padding: 32px 36px;
+    }
+    .cta-title {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #F0A500;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .cta-sub {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(250,247,245,0.6);
+      line-height: 1.5;
+    }
+
+    /* ── CAPTIONS ── */
+    .cap {
+      position: absolute;
+      width: 1080px;
+      left: 60px;
+      bottom: 52px;
+      z-index: 8;
+      text-align: left;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.4;
+      letter-spacing: 0.005em;
+      text-shadow:
+        0 2px 12px rgba(0,0,0,0.95),
+        0 0 28px rgba(0,0,0,0.75),
+        2px 2px 0 rgba(0,0,0,0.5);
+    }
+    .cap .hi { color: #F0A500; }
+
+    /* ── SCENE HUD ── */
+    #hud {
+      position: absolute;
+      top: 28px; left: 100px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(250,247,245,0.3);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      z-index: 20;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="root"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     style="position:relative;width:1920px;height:1080px;overflow:hidden;background:#060309;">
+
+  <!-- Ambient gradient background -->
+  <div style="position:absolute;top:0;left:0;width:1920px;height:1080px;
+              background:radial-gradient(ellipse 900px 700px at 15% 60%, rgba(90,4,16,0.22) 0%, transparent 70%),
+                         radial-gradient(ellipse 600px 500px at 80% 10%, rgba(15,5,30,0.6) 0%, transparent 70%);
+              z-index:0;"></div>
+
+  <!-- Face wrapper — vertical source cropped into right dock -->
+  <div id="face-wrapper">
+    <video id="face-video"
+           src="assets/source.mp4"
+           data-start="0"
+           data-duration="20.72"
+           data-track-index="0"
+           muted playsinline></video>
+  </div>
+  <audio id="face-audio"
+         src="assets/source.mp4"
+         data-start="0"
+         data-duration="20.72"
+         data-track-index="1"
+         data-volume="1"></audio>
+
+  <!-- HUD -->
+  <div id="hud">SCENE 01 / 04 — HOOK</div>
+
+  <!-- ══════════════════════════════════
+       S1 HOOK  0 → 4.52s
+       "Sản phẩm demo — call to action"
+       ══════════════════════════════════ -->
+  <div id="s1" class="clip scene"
+       data-start="0" data-duration="4.52" data-track-index="4">
+
+    <div id="s1-pill" class="pill pill-red">thời trang</div>
+    <div id="s1-h1" class="h1">
+      ÁO<br>
+      <span class="gold">MÀU BÈ</span>
+    </div>
+    <div id="s1-sub" class="sub">Lên cho chị màu bè để chị mua cho chồng</div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       S2 PRODUCT DETAIL  4.5 → 10.77s
+       "Đây màu bè này · Size 4XL · Tư vấn size"
+       ══════════════════════════════════ -->
+  <div id="s2" class="clip scene"
+       data-start="4.5" data-duration="6.27" data-track-index="5">
+
+    <div id="s2-pill" class="pill pill-red">sản phẩm</div>
+    <div id="s2-h2" class="h2">
+      SIZE <span class="gold">4XL</span>
+    </div>
+    <div id="s2-sub" class="sub">Màu bè của em đang mặc · Chồng chị bao nhiêu cân?</div>
+
+    <div class="cards">
+      <div id="s2-c1" class="card card-dark">
+        <div class="card-icon">&#x1F455;</div>
+        <div>
+          <div class="card-title">Đây chị nha, đây màu bè này</div>
+          <div class="card-sub">Màu chuẩn · Đẹp tự nhiên</div>
+        </div>
+      </div>
+      <div id="s2-c2" class="card card-dark">
+        <div class="card-icon">&#x1F4CF;</div>
+        <div>
+          <div class="card-title">Chồng chị bao nhiêu cân? Để em tư vấn cho</div>
+          <div class="card-sub">Không đẳng — em tư vấn đúng size</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       S3 BENEFITS  10.77 → 16.78s
+       "Chất liệu đủ · Lên form · Basic"
+       ══════════════════════════════════ -->
+  <div id="s3" class="clip scene"
+       data-start="10.77" data-duration="6.01" data-track-index="6">
+
+    <div id="s3-pill" class="pill pill-green">tại sao mua</div>
+    <div id="s3-h2" class="h2">CHẤT LIỆU<br><span class="gold">ĐẸP</span></div>
+
+    <div class="cards">
+      <div id="s3-c1" class="card card-green">
+        <div class="card-icon">&#x2705;</div>
+        <div>
+          <div class="card-title">Chất liệu vải đủ — lên form, lên dáng đây</div>
+          <div class="card-sub">Mặc thử tại chỗ</div>
+        </div>
+      </div>
+      <div id="s3-c2" class="card card-green">
+        <div class="card-icon">&#x2705;</div>
+        <div>
+          <div class="card-title">Basic, đơn giản — ai cũng có thể mua được</div>
+          <div class="card-sub">Giá hợp lý · Không kén người mặc</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       S4 CTA  16.78 → 20.72s
+       "Mua tặng chồng · Tham khảo nhanh"
+       ══════════════════════════════════ -->
+  <div id="s4" class="clip scene"
+       data-start="16.78" data-duration="3.94" data-track-index="7">
+
+    <div id="s4-pill" class="pill pill-gold">mua ngay</div>
+    <div id="s4-h1" class="h1" style="font-size:88px;">
+      MUA TẶNG<br>
+      <span class="gold">CHỒNG</span>
+    </div>
+
+    <div id="s4-cta" class="cta-box">
+      <div class="cta-title">&#x1F44B; Tham khảo nhanh nhá!</div>
+      <div class="cta-sub">Nếu chị muốn mua tặng chồng của chị · Nhanh ít sai lắm</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CAPTIONS — track 9, sentence-level
+       ══════════════════════════════════ -->
+  <div id="c1" class="clip cap" data-start="0.136" data-duration="2.035" data-track-index="9">
+    Lên cho chị màu bè để chị mua cho chồng
+  </div>
+  <div id="c2" class="clip cap" data-start="2.191" data-duration="2.307" data-track-index="9">
+    Đây chị nha, đây <span class="hi">màu bè</span> này
+  </div>
+  <div id="c3" class="clip cap" data-start="4.518" data-duration="2.817" data-track-index="9">
+    Màu bè của em đang mặc này là <span class="hi">size 4XL</span>
+  </div>
+  <div id="c4" class="clip cap" data-start="7.355" data-duration="3.380" data-track-index="9">
+    Chồng chị bao nhiêu cân chị không đẳng để em tư vấn cho
+  </div>
+  <div id="c5" class="clip cap" data-start="10.755" data-duration="2.670" data-track-index="9">
+    Chất liệu vải đủ nha chị, lên form lên <span class="hi">dáng đây</span>
+  </div>
+  <div id="c6" class="clip cap" data-start="13.445" data-duration="3.308" data-track-index="9">
+    Nói chung là <span class="hi">basic</span>, đơn giản, ai cũng có thể mua được chị ạ
+  </div>
+  <div id="c7" class="clip cap" data-start="16.773" data-duration="3.125" data-track-index="9">
+    Nếu mà chị muốn mua tặng chồng của chị thì <span class="hi">tham khảo nhanh nhá</span>
+  </div>
+  <div id="c8" class="clip cap" data-start="19.918" data-duration="0.780" data-track-index="9">
+    <span class="hi">Nhanh</span> ít sai lắm
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    /* Face: slide in from right at start */
+    tl.from('#face-wrapper', { x: 100, opacity: 0, duration: 0.55, ease: 'expo.out' }, 0.1);
+
+    /* HUD updates */
+    tl.set('#hud', { innerText: 'SCENE 01 / 04 — HOOK' }, 0);
+    tl.set('#hud', { innerText: 'SCENE 02 / 04 — SẢN PHẨM' }, 4.5);
+    tl.set('#hud', { innerText: 'SCENE 03 / 04 — LÝ DO MUA' }, 10.77);
+    tl.set('#hud', { innerText: 'SCENE 04 / 04 — MUA NGAY' }, 16.78);
+
+    /* ── S1 entrances ── */
+    tl.from('#s1-pill',  { y: 16, opacity: 0, duration: 0.3, ease: 'back.out(1.5)' }, 0.15);
+    tl.from('#s1-h1',   { x: -55, opacity: 0, duration: 0.5, ease: 'expo.out'      }, 0.28);
+    tl.from('#s1-sub',  { x: -35, opacity: 0, duration: 0.38, ease: 'power2.out'   }, 0.52);
+
+    /* ── S2 entrances ── */
+    tl.from('#s2',      { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 4.5);
+    tl.from('#s2-pill', { y: 16, opacity: 0, duration: 0.28, ease: 'back.out(1.5)' }, 4.62);
+    tl.from('#s2-h2',   { x: -50, opacity: 0, duration: 0.45, ease: 'expo.out'     }, 4.74);
+    tl.from('#s2-sub',  { y: 16, opacity: 0, duration: 0.32, ease: 'power2.out'    }, 4.96);
+    tl.from('#s2-c1',   { y: 28, opacity: 0, duration: 0.36, ease: 'power3.out'    }, 5.12);
+    tl.from('#s2-c2',   { y: 28, opacity: 0, duration: 0.36, ease: 'power3.out'    }, 5.36);
+
+    /* ── S3 entrances ── */
+    tl.from('#s3',      { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 10.77);
+    tl.from('#s3-pill', { y: 16, opacity: 0, duration: 0.28, ease: 'back.out(1.5)' }, 10.88);
+    tl.from('#s3-h2',   { x: -50, opacity: 0, duration: 0.45, ease: 'expo.out'     }, 11.0);
+    tl.from('#s3-c1',   { y: 28, opacity: 0, duration: 0.36, ease: 'power3.out'    }, 11.22);
+    tl.from('#s3-c2',   { y: 28, opacity: 0, duration: 0.36, ease: 'power3.out'    }, 11.48);
+
+    /* ── S4 entrances ── */
+    tl.from('#s4',      { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 16.78);
+    tl.from('#s4-pill', { y: 16, opacity: 0, duration: 0.28, ease: 'back.out(1.5)' }, 16.9);
+    tl.from('#s4-h1',   { x: -50, opacity: 0, duration: 0.45, ease: 'expo.out'     }, 17.02);
+    tl.from('#s4-cta',  { y: 28, scale: 0.97, opacity: 0, duration: 0.45, ease: 'back.out(1.3)' }, 17.28);
+
+    /* ── Captions ── */
+    var caps = [
+      [0.136,'#c1'],[2.191,'#c2'],[4.518,'#c3'],[7.355,'#c4'],
+      [10.755,'#c5'],[13.445,'#c6'],[16.773,'#c7'],[19.918,'#c8']
+    ];
+    caps.forEach(function(d) {
+      tl.from(d[1], { y: 12, opacity: 0, duration: 0.18, ease: 'back.out(1.4)' }, d[0]);
+    });
+
+    tl.set({}, {}, 20.72);
+    window.__timelines['root'] = tl;
+  </script>
+
+</div>
+</body>
+</html>

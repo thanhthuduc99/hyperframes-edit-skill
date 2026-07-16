@@ -1,0 +1,16 @@
+{
+  "name": "hyperframes-edit-skill",
+  "version": "1.0.0",
+  "description": "Claude Code skill for professional landscape (1920x1080) talking-head + motion-graphics video editing with HyperFrames.",
+  "scripts": {
+    "preflight": "node scripts/preflight.mjs",
+    "preflight:all": "for d in examples/*/; do node scripts/preflight.mjs \"$d\" || true; done"
+  },
+  "keywords": ["hyperframes", "video", "claude-code", "skill", "motion-graphics"],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.59.1"
+  }
+}

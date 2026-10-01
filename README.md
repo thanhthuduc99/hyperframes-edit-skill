@@ -4,6 +4,10 @@ A [Claude Code](https://claude.com/claude-code) skill for editing **talking-head
 
 Face-cam docks to one side, motion-graphics fill the other, captions burn in — the whole edit is authored as HTML and rendered through a headless browser.
 
+![First 8 seconds of a video rendered with this skill: hook scene, then intro scene](docs/images/render-hook-to-intro.gif)
+
+*First 8 seconds of a real render made with `edit-pro`: hook scene, then the cut to the intro scene. Face dock on the right, burned-in captions bottom left.*
+
 > **Style is a starting point, not a lock-in.** The bundled palette (Cosmic Red / Deep Space / Stardust) and Be Vietnam Pro fonts are a sample. Swap the tokens in `MOTION_PHILOSOPHY.md` for your own brand.
 
 ## What's inside
@@ -59,6 +63,10 @@ In Claude Code, just say **"edit chuyên nghiệp"** / **"edit hyperframes"** / 
 | Font | Be Vietnam Pro (local TTF) |
 | Emphasis | Cosmic Red `#E10E1F` |
 | Accent | Gold `#F0A500` |
+
+![Four scenes from the same render: intro, insight list, results stats, CTA](docs/images/render-scenes-intro-insight-results-cta.jpg)
+
+*Four scene templates from the same render: intro, checklist, stat cards, CTA.*
 
 See `MOTION_PHILOSOPHY.md` for the full design system and `WORKFLOW.md` for the pipeline.
 
